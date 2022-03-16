@@ -103,5 +103,33 @@ $$\hat{\mu_k} = \text{mean for input x}$$
 <https://www.knowledgehut.com/blog/data-science/linear-discriminant-analysis-for-machine-learning>
 <https://machinelearningmastery.com/linear-discriminant-analysis-for-machine-learning/>
 <https://www.sciencedirect.com/topics/computer-science/linear-discriminant-analysis>
-<https://towardsdatascience.com/linear-discriminant-analysis-explained-f88be6c1e00b>
+<https://towardsdatascience.com/linear-discriminant-analysis-explained-f88be6c1e00b>  
+
+
+
+
+## K-Nearest Neighbors  
+
+### 1. Main Objective 
+
+K-nearest neighbors is a supervised machine learning algorithm that is used for both, regression and classification. It predicts the correct class for the test observation by measuring the distance between it and all the training data points. Then it tries to find the **nearest neighbors** by ranking points by increasing distance,and finally vote for the most frequent label to be assigned to the test data point, after selecting the specified number *k* of nearest neighbors to consider.  
+
+
+### 2. Calculating distance  
+
+The first step in the KNN application is to calculate the distance between the data point we want to classify and our training data points.  
+To do this, we need to choose one of the various methods used to measure the distance such as:  
+
+
+- **Euclidean Distance**:  It is calculated as the square root of the sum of the squared differences between the test data point $t$ and a train data point $x$.
+
+$$\sqrt{\sum_{i=1}^k(t_i-x_i)^2}$$
+
+- **Manhattan Distance**: It calculated the distance between two points in a N dimensional vector space by summing the absolute difference between the measures in all dimensions of two points. 
+
+$$\sum_{i=1}^k{|t_i-x_i|}$$
+The two stated methods above are applied for continuous variables, while in the case of categorical variables, we opt for:  
+
+- **Hamming Distance**: It counts the number of times the coordinates in two categorical vectors differ. It is mainly used when you one-hot encode your data and need to find distances between the two binary vectors. 
+
 
