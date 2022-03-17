@@ -130,6 +130,50 @@ $$\sqrt{\sum_{i=1}^k(t_i-x_i)^2}$$
 $$\sum_{i=1}^k{|t_i-x_i|}$$
 The two stated methods above are applied for continuous variables, while in the case of categorical variables, we opt for:  
 
-- **Hamming Distance**: It counts the number of times the coordinates in two categorical vectors differ. It is mainly used when you one-hot encode your data and need to find distances between the two binary vectors. 
+- **Hamming Distance**: It counts the number of times the coordinates in two categorical vectors differ. It is mainly used when you one-hot encode your data and need to find distances between the two binary vectors.  
+
+### 3. Choosing the right value for **K**
+
+As **K** value indicates the number of nearest neighbors, we need to look for the optimal value to ensure we get the most accurate classification.  
+From the photo below, if we choose K=3, we predict that test observations belongs to class B, but it belongs to class A if we choose K to be 7. 
+
+\begin{center}
+\includegraphics{img/knn.png}
+\end{center}
+
+So, to select the K that is right for the data, we don't have pre-defined statistical methods to find the most favorable one, but instead we need to run the KNN algorithm multiple times with a different K each time. Then, we choose the K that reduces the number of errors we encounter while maintaining the algorithm’s ability to accurately make predictions when it’s given data it hasn’t seen before as show in the plot below.
+
+\begin{center}
+\includegraphics{img/k.png}
+\end{center}
+
+### 4. Pros & Cons
+
+| Pros | Cons |
+|------|------|
+|- It is simple to implement since it has only one parameter *k* |- It is a lazy learner, it takes longer time for inference than training|
+|- It allows dealing with complex objects, such as time series, graphs and any distance metric even defined by the user |- It is prone to overfitting as it is a distance based approach and can be affected by outliers|
+|- It is versatile, since it can be used for classification, regression, recommendations etc.|- It has the curse of dimensionality |
+
+<https://www.saedsayad.com/k_nearest_neighbors.htm#:~:text=K%20nearest%20neighbors%20is%20a,as%20a%20non%2Dparametric%20technique.>
+<https://medium.com/analytics-vidhya/pros-and-cons-of-popular-supervised-learning-algorithms-d5b3b75d9218>
+<https://www.kdnuggets.com/2020/11/most-popular-distance-metrics-knn.html#:~:text=The%20Hamming%20distance%20method%20looks,between%20the%20two%20binary%20vectors.>
+<https://towardsdatascience.com/machine-learning-basics-with-the-k-nearest-neighbors-algorithm-6a6e71d01761>
+<https://medium.com/swlh/k-nearest-neighbor-ca2593d7a3c4>
 
 
+## Classification Decision Trees  
+
+### 1. Main Objective 
+
+Classification trees is used in order to create a training model that leads to a decision about the class of an object by learning simple decision rules inferred from the training dataset.  
+In Decision trees, in order to predict a class label for the test observation, we start from the root of the tree, then we compare the values of the root attribute to the observation that we want to classify attribute. Once the comparaison is done, we follow the branch corresponding to that value and we move on to the next node. 
+
+
+### 4. Pros & Cons
+
+| Pros | Cons |
+|------|------|
+|- It is inexpensive to construct, and it is fast at classifiying unknown observations| - It is easy to overfit|
+|- It is easy to explain and interpret |- Small changes in the training data can result in large changes to decision logic|
+|- It can easily handle qualitative predictors without the need of creating dummy variables|- It doesn't have the same level of predictive accuracy as some of the classification approaches |
