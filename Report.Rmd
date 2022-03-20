@@ -167,8 +167,26 @@ So, to select the K that is right for the data, we don't have pre-defined statis
 ### 1. Main Objective 
 
 Classification trees is used in order to create a training model that leads to a decision about the class of an object by learning simple decision rules inferred from the training dataset.  
-In Decision trees, in order to predict a class label for the test observation, we start from the root of the tree, then we compare the values of the root attribute to the observation that we want to classify attribute. Once the comparaison is done, we follow the branch corresponding to that value and we move on to the next node. 
+In Decision trees, in order to predict a class label for the test observation, we start from the root of the tree, then we compare the values of the root attribute to the observation that we want to classify attribute. Once the comparison is done, we follow the branch corresponding to that value and we move on to the next node. 
 
+### 2. Recursive Binary Splitting  
+
+The decision trees are built using a heuristic method called recursive binary splitting. This approach considers all the features and it splits the data into subsets that are themselves splitted into smaller subsets.  
+
+After testing all our candidates' splits in each level, we calculate how much accuracy each split will cost us, using a function and we choose the one with that costs the least.
+
+Since we are basing our judgement on how homogeneous data is within each subset, we use the following cost function (Gini Index):  
+
+$$\text{G}= \sum_{k=1}^{K}{\hat{p}_{mk}(1-\hat{p}_{mk})}$$
+where $\hat{p}_{mk}$ represents the proportion of training observations in the $m^{th}$ group that are from the $k^{th}$ class.  
+This measure gives an idea about how good the split is, by defining how mixed the response classes are in the groups created. According to the function above, we can notice that the Gini Index takes a small value when all of the $\hat{p}_{mk}$'s are close to 0 or 1. It is for this reason that Gini is refereed to as the measure of node **purity** and the smaller the Gini Index is the more pure the node is.
+
+### 3. Pruning 
+
+We can improve the performance of the tree by **pruning** which means we remove the branches that make use of features with low importance. By doing so, we can reduce the complexity of the tree, and we increase its predictive power by reducing overfitting.  
+
+The classic way of pruning is to start at leaves and to remove each node with the most popular class in that leaf, and we keep this change if it doesn't negatively affect the accuracy. This approach is called **reduced error pruning**.  
+A more sophisticated approach can be also applied which is the **cost complexity pruning** that uses a learning parameter $\alpha$ to weigh whether nodes can be removed based on their sub-trees sizes. 
 
 ### 4. Pros & Cons
 
