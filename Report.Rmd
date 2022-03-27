@@ -1,8 +1,9 @@
 ---
-title: "Report"
+title: "Classification models benchmarking"
 author: "Wajih Arfaoui"
-date: "3/9/2022"
-output: pdf_document
+output:
+  pdf_document:
+    toc: TRUE
 ---
 
 ## Logistic Regression 
@@ -46,10 +47,6 @@ In order, to determine the parameters' values, we apply $log()$ to the likelihoo
 |- In addition to providing coefficients' sizes, it tells the direction of association      |- It assumes linearity between the dependent variable and the target|
 |- It doesn't need hyperparameter tuning      |- It is not considered as a very powerful algorithm and can be easily outperformed by other algorithms|
 
-<https://www.sciencedirect.com/topics/medicine-and-dentistry/logistic-regression-analysis>  
-<https://towardsdatascience.com/logistic-regression-explained-9ee73cede081>  
-<https://medium.com/data-science-group-iitr/logistic-regression-simplified-9b4efe801389#:~:text=The%20idea%20of%20Logistic%20Regression,two%20values%2C%20pass%20and%20fail.>  
-<https://medium.com/analytics-vidhya/what-is-the-logistic-regression-algorithm-and-how-does-it-work-92f7394ce761>
 
 
 ## Linear Discriminant Analysis  
@@ -98,13 +95,6 @@ $$\hat{\mu_k} = \text{mean for input x}$$
 |- LDA is simple to implement and the classification is robust |- LDA's linear decision boundaries may not adequately separate the classes|
 |- It uses information from both the features to create a new axis which in turn minimizes the variance and maximizes the class distance of the two variables|- It requires normal distribution assumption on features|
 | |- It has a large time complexity |
-
-<https://www.geeksforgeeks.org/ml-linear-discriminant-analysis/>
-<https://www.knowledgehut.com/blog/data-science/linear-discriminant-analysis-for-machine-learning>
-<https://machinelearningmastery.com/linear-discriminant-analysis-for-machine-learning/>
-<https://www.sciencedirect.com/topics/computer-science/linear-discriminant-analysis>
-<https://towardsdatascience.com/linear-discriminant-analysis-explained-f88be6c1e00b>  
-
 
 
 
@@ -155,11 +145,6 @@ So, to select the K that is right for the data, we don't have pre-defined statis
 |- It allows dealing with complex objects, such as time series, graphs and any distance metric even defined by the user |- It is prone to overfitting as it is a distance based approach and can be affected by outliers|
 |- It is versatile, since it can be used for classification, regression, recommendations etc.|- It has the curse of dimensionality |
 
-<https://www.saedsayad.com/k_nearest_neighbors.htm#:~:text=K%20nearest%20neighbors%20is%20a,as%20a%20non%2Dparametric%20technique.>
-<https://medium.com/analytics-vidhya/pros-and-cons-of-popular-supervised-learning-algorithms-d5b3b75d9218>
-<https://www.kdnuggets.com/2020/11/most-popular-distance-metrics-knn.html#:~:text=The%20Hamming%20distance%20method%20looks,between%20the%20two%20binary%20vectors.>
-<https://towardsdatascience.com/machine-learning-basics-with-the-k-nearest-neighbors-algorithm-6a6e71d01761>
-<https://medium.com/swlh/k-nearest-neighbor-ca2593d7a3c4>
 
 
 ## Classification Decision Trees  
@@ -195,3 +180,153 @@ A more sophisticated approach can be also applied which is the **cost complexity
 |- It is inexpensive to construct, and it is fast at classifiying unknown observations| - It is easy to overfit|
 |- It is easy to explain and interpret |- Small changes in the training data can result in large changes to decision logic|
 |- It can easily handle qualitative predictors without the need of creating dummy variables|- It doesn't have the same level of predictive accuracy as some of the classification approaches |
+
+
+
+## Support Vector Machine  
+
+### 1. Main Objective
+
+Support  Vector  Machine  (SVM)  is  a  supervised  machine  learning  algorithm  used  mainly  for  binary classification problems, even though it can also be used for regression as well.  The objective of SVM is to find a N-dimension hyperplane that distinctly classifies data points.  
+In order to find the most appropriate hyperplane, which means maximize the margin of the classifier, we rely on support vectors that are the closest data points to the hyperplane and can influence its position and orientation.
+
+
+### 2. Objective function 
+
+The outliers caused by this noise can affect the positioning of the hyperplane, so to avoid this, we need to find  a hyperplane  that  tolerates  at  a  certain  extent  misclassification by relaxing the  used  constraint  in linearity separable case:
+$$z_i(w^Tx_i+b)\ge 1$$
+We insert a slack $s_i \ge 0$ for each observation $x_i$. This $s_i$ indicates the deviation of $x_i$ from the corresponding hyperplane for $i = 1,...,n$, and we receive the following modified constraint: 
+$$z_i(w^Tx_i+b)+s_i\ge 1$$
+
+Hence, the sum of $s_i$ represents the total deviation error which is considered as the upper bound for the total missclassified data points.  
+Simultaneously,  we can  add  a  hyperparameter $v>0$ in order to regulate the influence of $s_i$, since it ensures achieving the best ratio between the margin with the highest width and the lowest number of misclassified data points. 
+
+Finally, the objective function for the SVM is represented as follows: 
+
+$$min_{(w,b,s)} v\sum_{i=1}^{n}{s_i+ \frac{1}{2}}||w||^2$$
+$$\text{s.to}:  z_i(w^Tx_i+b)+s_i\ge 1$$ 
+$$x_i \ge0, s_i \ge0, b \ge 0 \text{ for }i =1,...,n  $$
+
+Where:  
+- $v$ denotes the regularization hyperparameter.  
+      - $s_i$ denotes the distance of $x_i$ from the separating hyperplane.  
+      - $b$ denotes a bias parameter  
+      - $||w||^2 = w^Tw$  
+      - $z_i$ denotes a variable that equals 1 if $x_i$ belongs to class 1and -1 if $x_i$ belongs to class 2.
+      
+### 3. Pros & Cons   
+
+| Pros | Cons |
+|------|------|
+|- It is very effective when it comes to high dimensional spaces| - It can be quite costly computationally to train|
+|- It is relatively memory efficient |- It does not perform very well when the data set has more noise|
+|- It can be used to both classify data and also predict continuous numerical values|- It doesn't work that well with mid-size or large datasets| 
+
+### 4. 
+
+## Benchmarking 
+
+ 
+
+
+### 1. Feature Selection  
+
+After reading the data, doing the cleaning, the scaling and separating the **Independant variables** from **Dependant variable**, we proceed to do the feature selection.  
+Since we have numerical input variables and a binary target variable used for classification, I used **ANOVA f-test** as a selection model, and I ended up having these 10 features with the highest variances:   
+
+
+
+\begin{center}
+
+\includegraphics{img/features.png}
+\end{center}
+
+
+### 2. Cross validation & Sampling
+
+By training and testing our classification models multiple times on different sub-samples of the training dataset, we can have a more accurate overview of how well each model can perform on a data it has not seen. In the **K-fold** cross validation, I will measure the accuracy of each model after every iteration, and then compute the average of all the accuracy scores per model.   
+After applying a **20-fold** cross validation on the train dataset, the resulting comparison was like this:   
+
+\begin{center}
+
+\includegraphics{img/10fold.png}
+\end{center}
+
+\begin{center}
+
+\includegraphics{img/folds.png}
+\end{center}
+
+
+Using this 20-fold cross validation, the *SVM* outperforms the four other classification models by an AUC score of 0.7113 and accuracy of 0.7914, followed by the *LDA* model. 
+As for the second table, we can see how the accuracy score varies from one fold to another, what emphasizes the importance of cross validation over relying just on one simple training and validation sets.  
+
+We can also notice that the AUC scores are low, and we digging into the distribution of the target variable we can see that the principle reason behind this is the **imbalance** of our dataset as you can see from the histogram below:  
+
+\begin{center}
+
+\includegraphics{img/imbalance.png}
+
+\end{center}
+
+In order to fix this issue, I opted to first oversampling the default class using **SMOTE** with a ratio of **0.5**, and I ended up having a total number of .... 0s and .... 1s.
+
+After applying this technique and re-doing cross validation on the train set, we can remark as shown below, an increase in the AUC score for all the models: 
+
+\begin{center}
+
+\includegraphics{img/balance.png}
+
+\end{center}
+
+
+### 3. Hyperparameter Tuning
+
+For this task of choosing the optimal hyperparameters for each model, I chose to use one of the most popular approaches of tuning which is **RandomizedSearchCV()**.  
+In Randomised Grid Search Cross-Validation, fisrt thing to do, is to create a grid of hyperparameters that need to be optimised with a bunch of values that we want to try out, using a dictionary with the key-value pairs as shown below for the decision tree classifier:  
+
+\begin{center}
+
+\includegraphics{img/hyper.png}
+\end{center}
+
+This method uses cross validation to evaluate model's performance, but instead of trying all possible combinations of hyperparameters, it randomly chooses a values for each hyperparameter from the dictionary and evaluates the model using that combination. 
+
+After running the algorithm over 20 folds cross validation, we can get the best combination based on **F1 score** as follows: 
+
+\begin{center}
+
+\includegraphics{img/result.png}
+\end{center}
+
+Once the Randomised Grid Search Cross-Validation is applied on all the 5 classification models, we obtain the optimal hyperparameters (in terms of cross-validation), and we can move to evaluate these models based on the test datasets that I holded out since the preprocessing.  
+
+### 4. Model evaluation 
+
+In order to score our models' performance and do the comparison, I trained the models again on the train dataset using the optimal hyperparameters
+
+
+## References
+
+<https://www.geeksforgeeks.org/ml-linear-discriminant-analysis/>
+<https://www.knowledgehut.com/blog/data-science/linear-discriminant-analysis-for-machine-learning>
+<https://machinelearningmastery.com/linear-discriminant-analysis-for-machine-learning/>
+<https://www.sciencedirect.com/topics/computer-science/linear-discriminant-analysis>
+<https://towardsdatascience.com/linear-discriminant-analysis-explained-f88be6c1e00b>  
+<https://www.sciencedirect.com/topics/medicine-and-dentistry/logistic-regression-analysis>  
+<https://towardsdatascience.com/logistic-regression-explained-9ee73cede081>  
+<https://medium.com/data-science-group-iitr/logistic-regression-simplified-9b4efe801389#:~:text=The%20idea%20of%20Logistic%20Regression,two%20values%2C%20pass%20and%20fail.>  
+<https://medium.com/analytics-vidhya/what-is-the-logistic-regression-algorithm-and-how-does-it-work-92f7394ce761>  
+<https://www.saedsayad.com/k_nearest_neighbors.htm#:~:text=K%20nearest%20neighbors%20is%20a,as%20a%20non%2Dparametric%20technique.>  
+<https://medium.com/analytics-vidhya/pros-and-cons-of-popular-supervised-learning-algorithms-d5b3b75d9218>  
+<https://www.kdnuggets.com/2020/11/most-popular-distance-metrics-knn.html#:~:text=The%20Hamming%20distance%20method%20looks,between%20the%20two%20binary%20vectors.>  
+<https://towardsdatascience.com/machine-learning-basics-with-the-k-nearest-neighbors-algorithm-6a6e71d01761>  
+<https://medium.com/swlh/k-nearest-neighbor-ca2593d7a3c4>  
+<https://www.kdnuggets.com/2020/01/decision-tree-algorithm-explained.html#:~:text=The%20goal%20of%20using%20a,prior%20data(training%20data).&text=In%20Decision%20Trees%2C%20for%20predicting,the%20root%20of%20the%20tree.>   
+<https://medium.com/swlh/decision-tree-classification-de64fc4d5aac>  
+<https://towardsdatascience.com/decision-trees-in-machine-learning-641b9c4e8052>  
+<https://analyticsindiamag.com/7-types-classification-algorithms/#:~:text=Classification%20model%3A%20A%20classification%20model,of%20a%20phenomenon%20being%20observed.> 
+<https://scikit-learn.org/stable/modules/svm.html>  
+<https://www.youtube.com/watch?v=efR1C6CvhmE>  
+<https://www.analyticsvidhya.com/blog/2020/10/the-mathematics-behind-svm/>   <https://www.researchgate.net/publication/301876055_Multilevel_Weighted_Support_Vector_Machine_for_Classification_on_Healthcare_Data_with_Missing_Values>    
+
