@@ -1,10 +1,3 @@
----
-title: "Classification models benchmarking"
-author: "Wajih Arfaoui"
-output:
-  pdf_document:
-    keep_md: yes
----
 
 ## Logistic Regression 
 
