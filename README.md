@@ -1,5 +1,5 @@
 
-<center> # Classification models benchmarking </center>
+# Classification models benchmarking 
 
 ## Logistic Regression 
 
