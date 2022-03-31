@@ -1,4 +1,6 @@
 
+<center>#Classification models benchmarking</center>
+
 ## Logistic Regression 
 
 ### 1. Main Objective 
